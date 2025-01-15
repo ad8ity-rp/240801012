@@ -1,0 +1,416 @@
+1]Given a string, s, consisting of alphabets and digits, find the frequency of each digit in the given string.
+
+ 
+
+Input Format
+
+ 
+
+The first line contains a string, num which is the given number.
+
+ 
+
+Constraints
+
+ 
+
+1 ≤ len(num) ≤ 1000
+
+ 
+
+All the elements of num are made of English alphabets and digits.
+
+ 
+
+Output Format
+
+ 
+
+Print ten space-separated integers in a single line denoting the frequency of each digit from 0 to 9.
+
+ 
+
+Sample Input 0
+
+ 
+
+a11472o5t6
+
+ 
+
+Sample Output 0
+
+ 
+
+0 2 1 0 1 1 1 1 0 0
+
+ 
+
+Explanation 0
+
+ 
+
+In the given string:
+
+ 
+
+·         1 occurs two times.
+
+·         2, 4, 5, 6 and 7 occur one time each.
+
+The remaining digits 0, 3, 8 and 9 don't occur at all.
+
+ANS:
+#include <stdio.h>
+#include <ctype.h>  // For isdigit() function
+
+int main() {
+    // Declare an array to store the frequency of each digit (0-9)
+    int frequency[10] = {0};
+    
+    // Declare a string to store the input
+    char num[1001];  // Maximum length is 1000, so 1001 to accommodate null-terminator
+    
+    // Read the input string
+    fgets(num, sizeof(num), stdin);
+    
+    // Loop through each character in the string
+    for (int i = 0; num[i] != '\0'; i++) {
+        // If the character is a digit
+        if (isdigit(num[i])) {
+            // Convert the character to an integer and increment its frequency
+            frequency[num[i] - '0']++;
+        }
+    }
+    
+    // Output the frequency of digits 0 to 9
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", frequency[i]);
+    }
+    
+    // Print a newline at the end for formatting
+    printf("\n");
+    
+    return 0;
+}
+
+Input		
+a11472o5t6
+Got
+0 2 1 0 1 1 1 1 0 0
+lw4n88j12n1
+Got
+0 2 1 0 1 0 0 0 2 0
+
+2]Today, Monk went for a walk in a garden. There are many trees in the garden and each tree has an English alphabet on it. While Monk was walking, he noticed that all trees with vowels on it are not in good state. He decided to take care of them. So, he asked you to tell him the count of such trees in the garden.
+
+
+Note: The following letters are vowels: 'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o' and 'u'.
+
+ 
+
+Input:
+
+
+The first line consists of an integer T denoting the number of test cases.
+
+
+Each test case consists of only one string, each character of string denoting the alphabet (may be lowercase or uppercase) on a tree in the garden.
+
+ 
+
+Output:
+
+
+For each test case, print the count in a new line.
+
+ 
+
+Constraints:
+
+
+1 ≤ T ≤ 10
+1 ≤ length of string ≤ 105
+
+ 
+
+SAMPLE INPUT
+
+ 
+
+2
+
+nBBZLaosnm
+
+JHkIsnZtTL
+
+ 
+
+SAMPLE OUTPUT
+
+ 
+
+2
+
+1
+
+ 
+
+Explanation
+
+ 
+
+In test case 1, a and o are the only vowels. So, count=2
+
+ANS:
+#include <stdio.h>
+#include <string.h>
+
+// Function to check if a character is a vowel
+int isVowel(char ch) {
+    // Set of vowels (both uppercase and lowercase)
+    char vowels[] = "aeiouAEIOU";
+    
+    // Check if the character is in the vowels set
+    for (int i = 0; vowels[i] != '\0'; i++) {
+        if (ch == vowels[i]) {
+            return 1;  // Character is a vowel
+        }
+    }
+    return 0;  // Character is not a vowel
+}
+
+int main() {
+    int T;
+    // Read number of test cases
+    scanf("%d", &T);
+    
+    // Iterate through each test case
+    while (T--) {
+        char str[100001];  // To store the string, maximum length of 100000 characters
+        
+        // Read the string for the current test case
+        scanf("%s", str);
+        
+        int count = 0;
+        
+        // Count vowels in the string
+        for (int i = 0; str[i] != '\0'; i++) {
+            if (isVowel(str[i])) {
+                count++;
+            }
+        }
+        
+        // Print the count of vowels
+        printf("%d\n", count);
+    }
+    
+    return 0;
+}
+
+Input	Expected	Got	
+2
+nBBZLaosnm
+JHkIsnZtTL
+Got
+2
+1
+
+3]Given a sentence, s, print each word of the sentence in a new line.
+
+ 
+
+Input Format
+
+ 
+
+The first and only line contains a sentence, s.
+
+ 
+
+Constraints
+
+ 
+
+1 ≤ len(s) ≤ 1000
+
+ 
+
+Output Format
+
+ 
+
+Print each word of the sentence in a new line.
+
+ 
+
+Sample Input 0
+
+ 
+
+This is C
+
+ 
+
+Sample Output 0
+
+ 
+
+This
+
+is
+
+C
+
+ 
+
+Explanation 0
+
+ 
+
+In the given string, there are three words ["This", "is", "C"]. We have to print each of these words in a new line.
+
+ANS:
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[1001];  // Input string, max length is 1000 characters
+    
+    // Read the input sentence
+    fgets(s, sizeof(s), stdin);
+    
+    // Remove the newline character at the end if it exists (fgets includes newline)
+    s[strcspn(s, "\n")] = '\0';
+
+    // Use strtok to split the sentence into words
+    char *word = strtok(s, " ");  // Split by space
+
+    // Loop through the words and print each one on a new line
+    while (word != NULL) {
+        printf("%s\n", word);
+        word = strtok(NULL, " ");  // Get the next word
+    }
+
+    return 0;
+}
+
+
+Input		
+This is C
+Got
+This
+is
+C
+
+
+4]Input Format
+
+ 
+
+You are given two strings, a and b, separated by a new line. Each string will consist of lower case Latin characters ('a'-'z').
+
+ 
+
+Output Format
+
+ 
+
+In the first line print two space-separated integers, representing the length of a and b respectively.
+
+In the second line print the string produced by concatenating a and b (a + b).
+
+In the third line print two strings separated by a space, a' and b'. a' and b' are the same as a and b, respectively, except that their first characters are swapped.
+
+ 
+
+Sample Input
+
+ 
+
+abcd
+
+ef
+
+ 
+
+Sample Output
+
+ 
+
+4 2
+
+abcdef
+
+ebcd af
+
+ 
+
+Explanation
+
+ 
+
+a = "abcd"
+
+b = "ef"
+
+|a| = 4
+
+|b| = 2
+
+a + b = "abcdef"
+
+a' = "ebcd"
+
+b' = "af"
+
+ANS:
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char a[101], b[101], result[202];  
+
+    
+    scanf("%s", a);
+    scanf("%s", b);
+
+   
+    printf("%lu %lu\n", strlen(a), strlen(b));
+
+  
+    int i = 0, j = 0;
+    
+   
+    while (a[i] != '\0') {
+        result[i] = a[i];
+        i++;
+    }
+    
+    
+    while (b[j] != '\0') {
+        result[i + j] = b[j];
+        j++;
+    }
+    
+    result[i + j] = '\0';  
+ 
+    printf("%s\n", result);
+
+    
+    char temp = a[0];  
+    a[0] = b[0];  
+    b[0] = temp;  
+    printf("%s %s\n", a, b);
+    return 0;
+}
+
+
+
+Input		
+abcd
+ef
+Got
+4 2
+abcdef
+ebcd af
